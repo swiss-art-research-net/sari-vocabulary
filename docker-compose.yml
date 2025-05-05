@@ -13,7 +13,8 @@ services:
         max-file: "10"
     volumes:
       - blazegraph-data:/blazegraph-data
-
+      - ./data:/data
+      
   jobs:
     build: ./services/jobs
     container_name: ${PROJECT_NAME}_jobs
