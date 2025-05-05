@@ -1,0 +1,45 @@
+services:
+
+  blazegraph:
+    image: robcast/researchspace-blazegraph:2.2.0-20160908
+    container_name: ${PROJECT_NAME}_blazegraph
+    restart: unless-stopped
+    environment:
+      - JAVA_OPTS=-Xmx4g
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"
+    volumes:
+      - blazegraph-data:/blazegraph-data
+
+  jobs:
+    build: ./services/jobs
+    container_name: ${PROJECT_NAME}_jobs
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - ./scripts:/scripts
+
+  platform:
+    image: swissartresearx/researchspace:df13993f864921f9307436e00a08080f0d00ee92
+    container_name: ${PROJECT_NAME}_platform
+    restart: unless-stopped
+    depends_on:
+      - blazegraph
+    environment:
+      JAVA_OPTS: -Xmx1g
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"
+    volumes:
+      - platform-data:/runtime-data
+      - ./services/platform/apps:/apps
+
+volumes:
+  blazegraph-data:
+  platform-data:
+  
