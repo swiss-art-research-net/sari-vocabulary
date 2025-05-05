@@ -1,0 +1,52 @@
+version: '3'
+
+vars:
+  BLAZEGRAPH_ENDPOINT: http://blazegraph:8080/blazegraph/sparql
+
+tasks:
+  default:
+    desc: Run all tasks
+    cmds:
+      - task: download-ontologies
+      - task: ingest-ontologies
+
+  download-ontologies:
+    desc: Downloads the ontologies from the web
+    cmds:
+      - task: _download-file
+        vars:
+          URL: https://raw.githubusercontent.com/swiss-art-research-net/aaao/d222508a578f36faf2713481b4e23d7f6ef35eff/Serialization/AAAo_v2.0.rdf
+          FILE: /data/AAAo_V2.0.0.rdf
+
+  ingest-ontologies:
+    desc: Ingests the ontologies into individual named Graphs
+    sources:
+      - /data/*.*
+    cmds:
+      - task: _ingest-data-from-file
+        vars:
+          NAME: AAAo
+          FILE: /data/AAAo_V2.0.0.rdf
+          TYPE: application/rdf+xml
+          GRAPH: https://ontology.swissartresearch.net/aaao
+
+    
+  _download-file:
+    desc: Downloads a file from the web
+    internal: true
+    requires:
+      vars: [URL, FILE]
+    cmds:
+      - echo "Downloading file from {{.URL}} to {{.FILE}}"
+      - wget -q -O {{.FILE}} {{.URL}}
+      - echo "Download complete"
+
+  _ingest-data-from-file:
+    internal: true
+    vars:
+      ENDPOINT: 
+        sh: echo "{{if .ENDPOINT}}{{.ENDPOINT}}{{else}}{{.BLAZEGRAPH_ENDPOINT}}{{end}}"
+    cmds:
+      - echo "Ingest {{.NAME}}"
+      - curl --silent -X POST {{.ENDPOINT}} --data-urlencode 'update={{if .GRAPH}}DROP GRAPH <{{.GRAPH}}>{{end}}'
+      - curl -X POST -H 'Content-Type:{{.TYPE}}' --data-binary '@{{.FILE}}' {{.ENDPOINT}}{{if .GRAPH}}?context-uri={{.GRAPH}}{{end}}
