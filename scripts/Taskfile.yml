@@ -10,6 +10,21 @@ tasks:
       - task: download-ontologies
       - task: remove-obsolete-ontologies
       - task: ingest-ontologies
+      - task: cleanup
+
+  cleanup:
+    desc: Some cleanup tasks
+    vars:
+      QUERY: |
+        INSERT DATA {
+            GRAPH <https://ontology.swissartresearch.net/aaao/context> {
+              <https://ontology.swissartresearch.net/aaao/> a owl:Ontology ;
+                owl:versionInfo "2.0" ;
+                rdfs:label "Art and Architectural Argumentation Ontology"@en .
+          }
+        }
+    cmds:
+      - curl --silent -X POST {{.BLAZEGRAPH_ENDPOINT}} --data-urlencode 'update={{.QUERY}}'
 
   download-ontologies:
     desc: Downloads the ontologies from the web
@@ -51,25 +66,25 @@ tasks:
           NAME: AAAo
           FILE: /data/AAAo_V2.0.0.rdf
           TYPE: application/rdf+xml
-          GRAPH: https://ontology.swissartresearch.net/aaao/
+          GRAPH: https://ontology.swissartresearch.net/aaao/context
       - task: _ingest-data-from-file
         vars:
           NAME: CRMdig
           FILE: /data/CRMdig_V4.0.rdf
           TYPE: application/rdf+xml
-          GRAPH: http://www.ics.forth.gr/isl/CRMdig/
+          GRAPH: http://www.ics.forth.gr/isl/CRMdig/context
       - task: _ingest-data-from-file
         vars:
           NAME: CRMinf
           FILE: /data/CRMinf_V1.0.rdf
           TYPE: application/rdf+xml
-          GRAPH: http://www.ics.forth.gr/isl/CRMinf/
+          GRAPH: http://www.ics.forth.gr/isl/CRMinf/context
       - task: _ingest-data-from-file
         vars:
           NAME: LRMoo
           FILE: /data/LRMoo_V1.0.rdf
           TYPE: application/rdf+xml
-          GRAPH: http://iflastandards.info/ns/lrm/lrmoo/
+          GRAPH: http://iflastandards.info/ns/lrm/lrmoo/context
     
   _download-file:
     desc: Downloads a file from the web
