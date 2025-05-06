@@ -1,4 +1,3 @@
 .env
-data/
-!data/.gitkeep
+data/*.rdf
 scripts/.task
