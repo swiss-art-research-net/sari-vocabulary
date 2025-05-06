@@ -51,7 +51,7 @@ tasks:
           NAME: AAAo
           FILE: /data/AAAo_V2.0.0.rdf
           TYPE: application/rdf+xml
-          GRAPH: https://ontology.swissartresearch.net/aaao
+          GRAPH: https://ontology.swissartresearch.net/aaao/
       - task: _ingest-data-from-file
         vars:
           NAME: CRMdig
