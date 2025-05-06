@@ -1,2 +1,3 @@
 shiroAuthenticationFilter=authcBasic,authc,anon
 pathsToRewrite=/aaao/
+platformBaseIri=https://ontology.swissartresearch.net
