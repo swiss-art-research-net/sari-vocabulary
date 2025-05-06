@@ -1,1 +1,2 @@
 shiroAuthenticationFilter=authcBasic,authc,anon
+pathsToRewrite=/aaao/
