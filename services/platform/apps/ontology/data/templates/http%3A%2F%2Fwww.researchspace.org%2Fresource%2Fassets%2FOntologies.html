@@ -144,7 +144,7 @@
                                               OPTIONAL {?subject rdfs:label ?l}
                                               OPTIONAL { ?subject owl:versionInfo ?v } 
                                               OPTIONAL { ?subject rdfs:comment ?d }
-                                            } GROUP BY ?subject ORDER BY ASC(?subject) LIMIT 100' 
+                                            } GROUP BY ?subject ORDER BY ?name ASC(?subject) LIMIT 100' 
                                       tuple-template='{{> ontology}}'
                                       options='{"showFilter": false}'>
 
