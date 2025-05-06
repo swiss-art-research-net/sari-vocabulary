@@ -26,13 +26,20 @@ tasks:
         vars:
           URL: https://ontome.net/api/namespaces-rdf-owl.rdf?namespace=218
           FILE: /data/LRMoo_V1.0.rdf
+      - task: _download-file
+        vars:
+          URL: https://ontome.net/api/namespaces-rdf-owl.rdf?namespace=314
+          FILE: /data/CRMinf_V1.0.rdf
   
   remove-obsolete-ontologies:
     desc: Removes obsolete ontologies from the graph
     cmds:
       - task: _drop-graph
         vars:
-          GRAPH: http://www.ics.forth.gr/isl/CRMdig/contex
+          GRAPH: http://www.ics.forth.gr/isl/CRMdig/context
+      - task: _drop-graph
+        vars:
+          GRAPH: http://www.ics.forth.gr/isl/CRMinf/context
 
   ingest-ontologies:
     desc: Ingests the ontologies into individual named Graphs
@@ -51,6 +58,12 @@ tasks:
           FILE: /data/CRMdig_V4.0.rdf
           TYPE: application/rdf+xml
           GRAPH: http://www.ics.forth.gr/isl/CRMdig/
+      - task: _ingest-data-from-file
+        vars:
+          NAME: CRMinf
+          FILE: /data/CRMinf_V1.0.rdf
+          TYPE: application/rdf+xml
+          GRAPH: http://www.ics.forth.gr/isl/CRMinf/
       - task: _ingest-data-from-file
         vars:
           NAME: LRMoo
