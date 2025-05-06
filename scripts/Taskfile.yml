@@ -8,6 +8,7 @@ tasks:
     desc: Run all tasks
     cmds:
       - task: download-ontologies
+      - task: remove-obsolete-ontologies
       - task: ingest-ontologies
 
   download-ontologies:
@@ -17,7 +18,18 @@ tasks:
         vars:
           URL: https://raw.githubusercontent.com/swiss-art-research-net/aaao/d222508a578f36faf2713481b4e23d7f6ef35eff/Serialization/AAAo_v2.0.rdf
           FILE: /data/AAAo_V2.0.0.rdf
-
+      - task: _download-file
+        vars:
+          URL: https://ontome.net/api/namespaces-rdf-owl.rdf?namespace=211
+          FILE: /data/CRMdig_V4.0.rdf
+  
+  remove-obsolete-ontologies:
+    desc: Removes obsolete ontologies from the graph
+    cmds:
+      - task: _drop-graph
+        vars:
+          GRAPH: http://www.ics.forth.gr/isl/CRMdig/contex
+          
   ingest-ontologies:
     desc: Ingests the ontologies into individual named Graphs
     sources:
@@ -29,6 +41,12 @@ tasks:
           FILE: /data/AAAo_V2.0.0.rdf
           TYPE: application/rdf+xml
           GRAPH: https://ontology.swissartresearch.net/aaao
+      - task: _ingest-data-from-file
+        vars:
+          NAME: CRMdig
+          FILE: /data/CRMdig_V4.0.rdf
+          TYPE: application/rdf+xml
+          GRAPH: http://www.ics.forth.gr/isl/CRMdig/
 
     
   _download-file:
@@ -36,10 +54,17 @@ tasks:
     internal: true
     requires:
       vars: [URL, FILE]
+    status:
+      - test -f {{.FILE}}
     cmds:
       - echo "Downloading file from {{.URL}} to {{.FILE}}"
       - wget -q -O {{.FILE}} {{.URL}}
-      - echo "Download complete"
+      - echo "Download complete"  
+  
+  _drop-graph:
+    internal: true
+    cmds:
+      - curl --silent -X POST {{.BLAZEGRAPH_ENDPOINT}} --data-urlencode "update=DROP GRAPH <{{.GRAPH}}>" > /dev/null
 
   _ingest-data-from-file:
     internal: true
