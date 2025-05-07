@@ -6,6 +6,11 @@ INSERT DATA {
         owl:versionInfo "2.0" ;
         rdfs:label "Art and Architectural Argumentation Ontology"@en .
     }
+    GRAPH <http://www.cidoc-crm.org/cidoc-crm/context> {
+        <http://www.cidoc-crm.org/cidoc-crm/> a owl:Ontology ;
+        owl:versionInfo "7.1.3" ;
+        rdfs:label "CIDOC-CRM"@en .
+    }
     GRAPH <http://iflastandards.info/ns/lrm/lrmoo/context> {
         <http://iflastandards.info/ns/lrm/lrmoo/> rdfs:label "Library Reference Model"@en ;
     }
