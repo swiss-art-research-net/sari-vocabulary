@@ -11,6 +11,9 @@ INSERT DATA {
         owl:versionInfo "7.1.3" ;
         rdfs:label "CIDOC-CRM"@en .
     }
+    GRAPH <http://www.cidoc-crm.org/extensions/crmsci/context> {
+        <http://www.cidoc-crm.org/extensions/crmsci/> rdfs:label "CRMsci"@en .
+    }
     GRAPH <http://www.cidoc-crm.org/extensions/crmtex/context> {
         <http://www.cidoc-crm.org/extensions/crmtex/> rdfs:label "CRMtex"@en .
     }

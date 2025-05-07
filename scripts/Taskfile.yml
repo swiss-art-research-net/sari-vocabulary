@@ -36,6 +36,10 @@ tasks:
           FILE: /data/CRMdig_V4.0.rdf
       - task: _download-file
         vars:
+          URL: https://cidoc-crm.org/extensions/crmsci/rdfs/2.0/CRMsci_v2.0.rdf
+          FILE: /data/CRMsci_V2.0.rdf
+      - task: _download-file
+        vars:
           URL: https://cidoc-crm.org/extensions/crmtex/rdfs/2.0/CRMtex_v2.0.rdf
           FILE: /data/CRMtex_V2.0.rdf
       - task: _download-file
@@ -74,6 +78,12 @@ tasks:
           FILE: /data/CRMinf_V1.0.rdf
           TYPE: application/rdf+xml
           GRAPH: http://www.ics.forth.gr/isl/CRMinf/context
+      - task: _ingest-data-from-file
+        vars:
+          NAME: CRMsci
+          FILE: /data/CRMsci_V2.0.rdf
+          TYPE: application/rdf+xml
+          GRAPH: http://www.cidoc-crm.org/crmsci/context
       - task: _ingest-data-from-file
         vars:
           NAME: CRMtex
