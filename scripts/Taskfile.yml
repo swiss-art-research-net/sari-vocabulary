@@ -36,6 +36,10 @@ tasks:
           FILE: /data/CRMdig_V4.0.rdf
       - task: _download-file
         vars:
+          URL: https://cidoc-crm.org/extensions/crmtex/rdfs/2.0/CRMtex_v2.0.rdf
+          FILE: /data/CRMtex_V2.0.rdf
+      - task: _download-file
+        vars:
           URL: https://cidoc-crm.org/extensions/lrmoo/rdfs/1.0/LRMoo_v1.0.rdf
           FILE: /data/LRMoo_V1.0.rdf
       - task: _download-file
@@ -70,6 +74,12 @@ tasks:
           FILE: /data/CRMinf_V1.0.rdf
           TYPE: application/rdf+xml
           GRAPH: http://www.ics.forth.gr/isl/CRMinf/context
+      - task: _ingest-data-from-file
+        vars:
+          NAME: CRMtex
+          FILE: /data/CRMtex_V2.0.rdf
+          TYPE: application/rdf+xml
+          GRAPH: http://www.cidoc-crm.org/crmtex/context
       - task: _ingest-data-from-file
         vars:
           NAME: LRMoo
