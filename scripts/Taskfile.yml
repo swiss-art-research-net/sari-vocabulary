@@ -19,6 +19,15 @@ tasks:
     cmds:
       - curl --silent -X POST {{.BLAZEGRAPH_ENDPOINT}} --data-urlencode 'update={{.QUERY}}'
 
+  drop-all:
+    desc: Drops all the graphs
+    prompt: This will remove all data from the triplestore. Do you want to continue?
+    vars:
+      QUERY: DROP ALL
+    cmds:
+      - curl --silent -X POST {{.BLAZEGRAPH_ENDPOINT}} --data-urlencode 'update={{.QUERY}}'
+      - echo "All data removed from the triplestore"
+
   download-ontologies:
     desc: Downloads the ontologies from the web
     cmds:
