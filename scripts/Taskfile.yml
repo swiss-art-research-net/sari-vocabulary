@@ -15,14 +15,8 @@ tasks:
   cleanup:
     desc: Some cleanup tasks
     vars:
-      QUERY: |
-        INSERT DATA {
-            GRAPH <https://ontology.swissartresearch.net/aaao/context> {
-              <https://ontology.swissartresearch.net/aaao/> a owl:Ontology ;
-                owl:versionInfo "2.0" ;
-                rdfs:label "Art and Architectural Argumentation Ontology"@en .
-          }
-        }
+      QUERY: 
+        sh: cat /scripts/queries/cleanup.sparql
     cmds:
       - curl --silent -X POST {{.BLAZEGRAPH_ENDPOINT}} --data-urlencode 'update={{.QUERY}}'
 
@@ -39,7 +33,7 @@ tasks:
           FILE: /data/CRMdig_V4.0.rdf
       - task: _download-file
         vars:
-          URL: https://ontome.net/api/namespaces-rdf-owl.rdf?namespace=218
+          URL: https://cidoc-crm.org/extensions/lrmoo/rdfs/1.0/LRMoo_v1.0.rdf
           FILE: /data/LRMoo_V1.0.rdf
       - task: _download-file
         vars:
@@ -58,8 +52,6 @@ tasks:
 
   ingest-ontologies:
     desc: Ingests the ontologies into individual named Graphs
-    sources:
-      - /data/*.*
     cmds:
       - task: _ingest-data-from-file
         vars:

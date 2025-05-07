@@ -1,0 +1,12 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+INSERT DATA {
+    GRAPH <https://ontology.swissartresearch.net/aaao/context> {
+        <https://ontology.swissartresearch.net/aaao/> a owl:Ontology ;
+        owl:versionInfo "2.0" ;
+        rdfs:label "Art and Architectural Argumentation Ontology"@en .
+    }
+    GRAPH <http://iflastandards.info/ns/lrm/lrmoo/context> {
+        <http://iflastandards.info/ns/lrm/lrmoo/> rdfs:label "Library Reference Model"@en ;
+    }
+}
