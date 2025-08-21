@@ -1,8 +1,8 @@
-# SARI Ontology
+# SARI Vocabulary
 
 ## About
 
-A ResearchSpace instance that contains the ontologies created by SARI.
+A ResearchSpace instance that contains vocabularies created by SARI.
 
 
 ## How to use
@@ -19,4 +19,4 @@ Run the project with
 docker compose up -d
 ```
 
-ResearchSpace comes with some preloaded ontologies. To start with a clean slate, remove all triples after the first run.
+ResearchSpace comes with some preloaded ontologies and vocabularies. To start with a clean slate, remove all triples after the first run.
