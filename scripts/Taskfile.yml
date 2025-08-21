@@ -7,8 +7,8 @@ tasks:
   default:
     desc: Run all tasks
     cmds:
-      - task: download-ontologies
-      - task: ingest-ontologies
+      - task: download-vocabularies
+      - task: ingest-vocabularies
       - task: cleanup
 
   cleanup:
@@ -28,37 +28,13 @@ tasks:
       - curl --silent -X POST {{.BLAZEGRAPH_ENDPOINT}} --data-urlencode 'update={{.QUERY}}'
       - echo "All data removed from the triplestore"
 
-  download-ontologies:
-    desc: Downloads the ontologies from the web
+  download-vocabularies:
+    desc: Downloads the vocabularies from the web
     cmds:
       - task: _download-file
         vars:
           URL: https://raw.githubusercontent.com/swiss-art-research-net/aaao/d222508a578f36faf2713481b4e23d7f6ef35eff/Serialization/AAAo_v2.0.rdf
           FILE: /data/AAAo_V2.0.0.rdf
-      - task: _download-file
-        vars:
-          URL: https://ontome.net/api/namespaces-rdfs.rdf?namespace=188
-          FILE: /data/CIDOC_CRM_V7.1.3.rdf
-      - task: _download-file
-        vars:
-          URL: https://ontome.net/api/namespaces-rdf-owl.rdf?namespace=211
-          FILE: /data/CRMdig_V4.0.rdf
-      - task: _download-file
-        vars:
-          URL: https://cidoc-crm.org/extensions/crmsci/rdfs/2.0/CRMsci_v2.0.rdf
-          FILE: /data/CRMsci_V2.0.rdf
-      - task: _download-file
-        vars:
-          URL: https://cidoc-crm.org/extensions/crmtex/rdfs/2.0/CRMtex_v2.0.rdf
-          FILE: /data/CRMtex_V2.0.rdf
-      - task: _download-file
-        vars:
-          URL: https://cidoc-crm.org/extensions/lrmoo/rdfs/1.0/LRMoo_v1.0.rdf
-          FILE: /data/LRMoo_V1.0.rdf
-      - task: _download-file
-        vars:
-          URL: https://ontome.net/api/namespaces-rdf-owl.rdf?namespace=314
-          FILE: /data/CRMinf_V1.0.rdf
 
   ingest-ontologies:
     desc: Ingests the ontologies into individual named Graphs
@@ -69,42 +45,6 @@ tasks:
           FILE: /data/AAAo_V2.0.0.rdf
           TYPE: application/rdf+xml
           GRAPH: https://ontology.swissartresearch.net/aaao/context
-      - task: _ingest-data-from-file
-        vars:
-          NAME: CIDOC_CRM
-          FILE: /data/CIDOC_CRM_V7.1.3.rdf
-          TYPE: application/rdf+xml
-          GRAPH: http://www.cidoc-crm.org/cidoc-crm/context
-      - task: _ingest-data-from-file
-        vars:
-          NAME: CRMdig
-          FILE: /data/CRMdig_V4.0.rdf
-          TYPE: application/rdf+xml
-          GRAPH: http://www.ics.forth.gr/isl/CRMdig/context
-      - task: _ingest-data-from-file
-        vars:
-          NAME: CRMinf
-          FILE: /data/CRMinf_V1.0.rdf
-          TYPE: application/rdf+xml
-          GRAPH: http://www.ics.forth.gr/isl/CRMinf/context
-      - task: _ingest-data-from-file
-        vars:
-          NAME: CRMsci
-          FILE: /data/CRMsci_V2.0.rdf
-          TYPE: application/rdf+xml
-          GRAPH: http://www.cidoc-crm.org/crmsci/context
-      - task: _ingest-data-from-file
-        vars:
-          NAME: CRMtex
-          FILE: /data/CRMtex_V2.0.rdf
-          TYPE: application/rdf+xml
-          GRAPH: http://www.cidoc-crm.org/crmtex/context
-      - task: _ingest-data-from-file
-        vars:
-          NAME: LRMoo
-          FILE: /data/LRMoo_V1.0.rdf
-          TYPE: application/rdf+xml
-          GRAPH: http://iflastandards.info/ns/lrm/lrmoo/context
     
   _download-file:
     desc: Downloads a file from the web
