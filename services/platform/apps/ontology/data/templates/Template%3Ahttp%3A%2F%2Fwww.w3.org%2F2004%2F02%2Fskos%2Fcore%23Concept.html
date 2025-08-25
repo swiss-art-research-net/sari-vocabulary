@@ -1,0 +1,71 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+  <li><semantic-link iri="page:vocabularies">Vocabularies</semantic-link></li>
+  <li class="active"><mp-label iri="[[this]]"></mp-label></li>
+</ol>
+
+<div class="container-fluid">
+  <bs-row>
+    <bs-col sm="12">
+
+      <h1><mp-label iri="[[this]]"></mp-label></h1>
+      <semantic-query
+        query="SELECT ?definition WHERE {
+          <[[this]]> skos:definition ?definition .
+        }"
+      ></semantic-query>
+
+      <semantic-query 
+        query="SELECT DISTINCT ?scheme WHERE {
+          <[[this]]> skos:inScheme ?scheme .
+          FILTER(?scheme != <[[this]]>)
+        }"
+        template="{{> template}}"
+      >
+        <template id="template">
+          <h2>Scheme</h2>
+          <ul>
+            {{#each bindings}}
+              <li><semantic-link iri="{{scheme.value}}"></semantic-link></li>
+            {{/each}}
+          </ul>
+        </template>
+      </semantic-query>
+
+      <semantic-query 
+        query="SELECT DISTINCT ?concept WHERE {
+          ?concept skos:broader <[[this]]> .
+          FILTER(?concept != <[[this]]>)
+        }"
+        template="{{> template}}"
+      >
+        <template id="template">
+          <h2>Broader</h2>
+          <ul>
+            {{#each bindings}}
+              <li><semantic-link iri="{{concept.value}}"></semantic-link></li>
+            {{/each}}
+          </ul>
+        </template>
+      </semantic-query>
+      
+      <semantic-query 
+        query="SELECT DISTINCT ?concept WHERE {
+          ?concept skos:narrower <[[this]]> .
+          FILTER(?concept != <[[this]]>)
+        }"
+        template="{{> template}}"
+      >
+        <template id="template">
+          <h2>Narrower</h2>
+          <ul>
+            {{#each bindings}}
+              <li><semantic-link iri="{{concept.value}}"></semantic-link></li>
+            {{/each}}
+          </ul>
+      </semantic-query>
+    </bs-col>
+  </bs-row>
+</div>

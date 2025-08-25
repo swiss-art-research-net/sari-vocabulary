@@ -1,0 +1,32 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+  <li><semantic-link iri="page:vocabularies">Vocabularies</semantic-link></li>
+  <li class="active"><mp-label iri="[[this]]"></mp-label></li>
+</ol>
+
+<div class="container-fluid">
+    <bs-row>
+        <bs-col sm="12">
+            <h1><mp-label iri="[[this]]"></mp-label></h1>
+
+            <semantic-query 
+                query="SELECT DISTINCT ?concept WHERE {
+                    ?concept skos:inScheme <[[this]]> .
+                    FILTER(?concept != <[[this]]>)
+                }"
+                template="{{> template}}"
+            >
+                <template id="template">
+                    <h2>Concepts</h2>
+                    <ul>
+                        {{#each bindings}}
+                            <li><semantic-link iri="{{concept.value}}"></semantic-link></li>
+                        {{/each}}
+                    </ul>
+                </template>
+            </semantic-query>
+        </bs-col>
+    </bs-row>
+</div>
