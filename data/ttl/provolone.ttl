@@ -1,0 +1,49 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vocab: <https://vocabulary.swissartresearch.net/provolone#> .
+
+vocab:Labelling a skos:Concept ;
+    skos:altLabel "Annotation"@en ;
+    skos:broader vocab:MachineLearningProcess ;
+    skos:closeMatch "https://www.wikidata.org/wiki/Q11836775"@en ;
+    skos:definition "The process of assigning one or more target values or categories to data instances, typically used for supervised learning."@en ;
+    skos:example "Assigning a 'cat' or 'dog' label to an image in a classification task."@en ;
+    skos:inScheme <https://vocabulary.swissartresearch.net/provolone> ;
+    skos:prefLabel "Labelling"@en .
+
+vocab:Prediction a skos:Concept ;
+    skos:broader vocab:MachineLearningProcess ;
+    skos:definition "The process of using a trained model to infer or generate output values for new, unseen input data.\""@en ;
+    skos:example "Predicting house prices from size and location using a regression model."@en ;
+    skos:inScheme <https://vocabulary.swissartresearch.net/provolone> ;
+    skos:prefLabel "Prediction"@en .
+
+vocab:Training a skos:Concept ;
+    skos:altLabel "Model training"@en ;
+    skos:broader vocab:MachineLearningProcess ;
+    skos:definition "The process of fitting a machine learning model to labeled data by optimizing its parameters to minimize prediction error."@en ;
+    skos:example "Training a neural network using backpropagation and gradient descent."@en ;
+    skos:inScheme <https://vocabulary.swissartresearch.net/provolone> ;
+    skos:prefLabel "Training"@en .
+
+vocab:Transformation a skos:Concept ;
+    skos:broader vocab:MachineLearningProcess ;
+    skos:definition "The conversion or alteration of data from one form to another to improve compatibility, interpretability, or model performance."@en ;
+    skos:exactMatch "https://www.wikidata.org/wiki/Q4272815"@en ;
+    skos:example "Normalizing numeric features or applying PCA for dimensionality reduction."@en ;
+    skos:inScheme <https://vocabulary.swissartresearch.net/provolone> ;
+    skos:prefLabel "Transformation"@en .
+
+vocab:MachineLearningProcess a skos:Concept ;
+    skos:closeMatch "https://www.wikidata.org/wiki/Q1192422"@en ;
+    skos:definition "A broad category representing a computational step in a machine learning workflow."@en ;
+    skos:inScheme <https://vocabulary.swissartresearch.net/provolone> ;
+    skos:narrower vocab:Labelling,
+        vocab:Prediction,
+        vocab:Training,
+        vocab:Transformation ;
+    skos:prefLabel "Machine Learning Process"@en ;
+    skos:topConceptOf <https://vocabulary.swissartresearch.net/provolone> .
+
+<https://vocabulary.swissartresearch.net/provolone> a skos:ConceptScheme ;
+    skos:hasTopConcept vocab:MachineLearningProcess .
+
