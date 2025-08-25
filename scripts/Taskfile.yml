@@ -42,7 +42,7 @@ tasks:
       - task: _generate_vocabulary
         vars:
           INPUTFILE: /data/input/provolone.csv
-          NAMESPACE: https://vocabulary.swissartresearch.net/provolone#
+          NAMESPACE: https://vocabulary.swissartresearch.net/provolone/
           OUTPUTFILE: /data/ttl/provolone.ttl
 
   ingest-vocabularies:
