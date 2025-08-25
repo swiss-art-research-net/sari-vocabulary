@@ -7,7 +7,7 @@ tasks:
   default:
     desc: Run all tasks
     cmds:
-      - task: download-vocabularies
+      - task: generate-vocabularies
       - task: ingest-vocabularies
       - task: cleanup
 
@@ -45,15 +45,15 @@ tasks:
           NAMESPACE: https://vocabulary.swissartresearch.net/provolone#
           OUTPUTFILE: /data/ttl/provolone.ttl
 
-  ingest-ontologies:
-    desc: Ingests the ontologies into individual named Graphs
+  ingest-vocabularies:
+    desc: Ingests the vocabularies into individual named Graphs
     cmds:
       - task: _ingest-data-from-file
         vars:
-          NAME: AAAo
-          FILE: /data/AAAo_V2.0.0.rdf
-          TYPE: application/rdf+xml
-          GRAPH: https://ontology.swissartresearch.net/aaao/context
+          NAME: Provolone
+          FILE: /data/ttl/provolone.ttl
+          TYPE: application/x-turtle
+          GRAPH: https://vocabulary.swissartresearch.net/provolone/context
     
   _download-file:
     desc: Downloads a file from the web

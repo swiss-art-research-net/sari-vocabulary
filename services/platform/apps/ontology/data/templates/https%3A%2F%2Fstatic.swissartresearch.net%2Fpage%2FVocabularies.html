@@ -1,0 +1,15 @@
+
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+  <li class="active">Vocabularies</li>
+</ol>
+
+<h1>Vocabularies</h1>
+
+<semantic-table
+  query="SELECT * WHERE {
+      ?vocabulary a skos:ConceptScheme
+    }"
+  ></semantic-table>
