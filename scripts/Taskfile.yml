@@ -36,6 +36,15 @@ tasks:
           URL: https://raw.githubusercontent.com/swiss-art-research-net/aaao/d222508a578f36faf2713481b4e23d7f6ef35eff/Serialization/AAAo_v2.0.rdf
           FILE: /data/AAAo_V2.0.0.rdf
 
+  generate-vocabularies:
+    desc: Generates the vocabularies from CSV files
+    cmds:
+      - task: _generate_vocabulary
+        vars:
+          INPUTFILE: /data/input/provolone.csv
+          NAMESPACE: https://vocabulary.swissartresearch.net/provolone#
+          OUTPUTFILE: /data/ttl/provolone.ttl
+
   ingest-ontologies:
     desc: Ingests the ontologies into individual named Graphs
     cmds:
@@ -57,7 +66,14 @@ tasks:
       - echo "Downloading file from {{.URL}} to {{.FILE}}"
       - wget -q -O {{.FILE}} {{.URL}}
       - echo "Download complete"  
-  
+    
+  _generate_vocabulary:
+    internal: true
+    requires:
+      vars: [INPUTFILE, NAMESPACE, OUTPUTFILE]
+    cmds:
+      - python3 /scripts/convertCSVtoVocabulary.py --input {{.INPUTFILE}} --namespace {{.NAMESPACE}} --output {{.OUTPUTFILE}}
+
   _drop-graph:
     internal: true
     cmds:
