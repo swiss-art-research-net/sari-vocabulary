@@ -22,6 +22,9 @@ ENV TZ=Europe/Zurich
 # Install task runner (http://taskfile.dev)
 RUN sh -c "$(curl -sSL https://taskfile.dev/install.sh)" -- -d
 
+# Install python libraries
+RUN pip install rdflib
+
 VOLUME /data
 WORKDIR /scripts
 
