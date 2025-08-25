@@ -1,5 +1,5 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix vocab: <https://vocabulary.swissartresearch.net/provolone#> .
+@prefix vocab: <https://vocabulary.swissartresearch.net/provolone/> .
 
 vocab:Labelling a skos:Concept ;
     skos:altLabel "Annotation"@en ;

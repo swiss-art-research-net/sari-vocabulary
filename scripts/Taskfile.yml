@@ -13,6 +13,9 @@ tasks:
 
   cleanup:
     desc: Some cleanup tasks
+    sources:
+      - /data/ttl/*.ttl
+      - /scripts/queries/cleanup.sparql
     vars:
       QUERY: 
         sh: cat /scripts/queries/cleanup.sparql
@@ -38,6 +41,8 @@ tasks:
 
   generate-vocabularies:
     desc: Generates the vocabularies from CSV files
+    sources:
+      - data/input/*.csv
     cmds:
       - task: _generate_vocabulary
         vars:
@@ -47,6 +52,8 @@ tasks:
 
   ingest-vocabularies:
     desc: Ingests the vocabularies into individual named Graphs
+    sources:
+      - data/ttl/*.ttl
     cmds:
       - task: _ingest-data-from-file
         vars:
