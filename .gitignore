@@ -1,4 +1,4 @@
 .env
-data/*.rdf
+data/ttl/*.ttl
 runtime-data/
 scripts/.task
