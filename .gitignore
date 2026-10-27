@@ -2,3 +2,4 @@
 data/ttl/*.ttl
 runtime-data/
 scripts/.task
+.DS_Store
